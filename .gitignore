@@ -1,0 +1,11 @@
+node_modules/
+.cache/
+.DS_Store
+.idea/
+.vscode/
+__pycache__/
+.pytest_cache/
+*.png
+*.jpg
+!docs/diagrams/*.png
+!docs/diagrams/*.jpg

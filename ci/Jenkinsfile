@@ -1,0 +1,26 @@
+pipeline {
+  agent any
+  environment {
+    REGISTRY = "ghcr.io/your-org"
+    IMAGE    = "edge-vps-app"
+    TAG      = "${env.BUILD_NUMBER}"
+  }
+  stages {
+    stage('Checkout') { steps { checkout scm } }
+    stage('Build') {
+      steps { sh 'docker build -t $REGISTRY/$IMAGE:$TAG -f docker/app/Dockerfile .' }
+    }
+    stage('Push') {
+      steps {
+        sh 'echo $CR_PAT | docker login ghcr.io -u YOUR_GH_USER --password-stdin'
+        sh 'docker push $REGISTRY/$IMAGE:$TAG'
+      }
+    }
+    stage('Deploy to VPS') {
+      steps {
+        sh 'VPS_HOST=$VPS_HOST ./edge/deploy_vps.sh || true'
+      }
+    }
+  }
+}
+

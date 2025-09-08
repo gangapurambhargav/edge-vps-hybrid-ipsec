@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edge + VPS Hybrid Diagrams</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 20px; }
+      .diagram { margin: 32px 0; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: false });</script>
+    <script src="topology.js"></script>
+    <script src="cicd.js"></script>
+  </head>
+  <body>
+    <h1>Edge + VPS Hybrid Diagrams</h1>
+    <h2>Topology</h2>
+    <div id="topology" class="mermaid diagram"></div>
+    <h2>CI/CD</h2>
+    <div id="cicd" class="mermaid diagram"></div>
+    <script>
+      document.getElementById('topology').textContent = window.topologyDiagram;
+      document.getElementById('cicd').textContent = window.cicdDiagram;
+      mermaid.run();
+    </script>
+  </body>
+  </html>
+

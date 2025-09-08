@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  app:
+    image: ghcr.io/gangapurambhargav/edge-vps-app:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - ENV=edge
+    restart: unless-stopped

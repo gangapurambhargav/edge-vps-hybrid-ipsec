@@ -1,0 +1,47 @@
+window.topologyDiagram = `
+flowchart TB
+  subgraph Edge[Edge/VPS Sites]
+    direction TB
+    V1[VPS-1\\nDocker Apps\\n10.255.1.0/24]
+    V2[VPS-2\\nDocker Apps\\n10.255.2.0/24]
+  end
+
+  subgraph OnPrem[On-Prem DC]
+    direction TB
+    SW[SonicWALL HQ\\nWAN: 203.0.113.10\\nLAN: 10.0.0.0/16\\nIPsec IKEv2 AES-256]
+    AD[Windows Server\\nAD/Group Policy]
+    OSPF[OSPF Area 0]
+    VLAN10[VLAN10-APP\\n10.0.10.0/24]
+    VLAN20[VLAN20-OPS\\n10.0.20.0/24]
+    JENK[Jenkins]
+    SQ[SonarQube]
+    NMS[SNMP/Alerting]
+    VLAN10 --- OSPF
+    VLAN20 --- OSPF
+  end
+
+  subgraph AWS[AWS us-east-1]
+    VPC[(VPC aws-edge\\n10.50.0.0/16)]
+    APRV1[private-a\\n10.50.1.0/24]
+    APRV2[private-b\\n10.50.2.0/24]
+    EKS[EKS]
+    NLB[NLB]
+  end
+
+  subgraph GCP[GCP us-central1]
+    VPCG[(VPC gcp-edge\\n10.60.0.0/16)]
+    GPRV1[subnet-a\\n10.60.1.0/24]
+    GPRV2[subnet-b\\n10.60.2.0/24]
+    GKE[GKE]
+    GLB[External LB]
+    VM[Compute Engine VM]
+  end
+
+  V1 -- IPsec strongSwan --> SW
+  V2 -- IPsec strongSwan --> SW
+  SW -- IPsec --> EKS
+  SW -- IPsec --> GKE
+  JENK --- SW
+  SQ --- SW
+  NMS --- SW
+`;
