@@ -30,7 +30,7 @@ flowchart LR
     AD[AD/Group Policy]
     LAN[OSPF, VTP, VLANs]
     JENK[Jenkins]
-    SQ[SonarQube]
+    SQ[SonarQube] 
     NMS[SNMP/Alerting]
   end
 
